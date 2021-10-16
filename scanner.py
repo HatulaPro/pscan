@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urlunsplit, urlsplit, urljoin
 
 
-VERSION = '1.0.1v'
+VERSION = '1.0.2v'
 
 history = []
 
