@@ -12,5 +12,8 @@ def get_args():
     parser.add_argument('-d', '--depth', metavar='depth', type=int,
                         default=DEFAULT_DEPTH, help=f'The depth of the scan. Default: {DEFAULT_DEPTH}')
 
+    parser.add_argument('-o', '--output-file', metavar='file-name', type=str,
+                        default=None, help=f'File to output to. Default: None')
+
     args = parser.parse_args()
     return args

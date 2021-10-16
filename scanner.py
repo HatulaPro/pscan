@@ -1,7 +1,7 @@
 import requests
 from modules import parser
+from modules.logger import Logger
 from bs4 import BeautifulSoup
-from pprint import pprint
 from urllib.parse import urlparse, urlunsplit, urlsplit, urljoin
 
 
@@ -27,13 +27,13 @@ def scan(url, depth=0):
 
     res = requests.get(url)
     if res.status_code not in config['bad_status_codes']:
-        print(f"Found [{url}] ({res.status_code}) - depth={depth}")
+        Logger.info(
+            f"Found [{url}] ({res.status_code}) - size={len(res.text)} depth={depth}")
         history.append(url)
 
         html = BeautifulSoup(res.text, 'html.parser')
         links = list(dict.fromkeys([drop_params(link.get('href')) for link in html.find_all()
                                     if link.name == 'a' and link.get('href')]))
-        # pprint(links)
         for link in links:
             url_to_scan = urljoin(url, link)
             parsed = urlparse(url_to_scan)
@@ -51,14 +51,18 @@ def main():
 
         config['DEPTH'] = args.depth
 
-        print(
+        Logger.set_output_file(args.output_file)
+
+        Logger.message(
             f"Starting pscan {VERSION}\n    url: {config['URL'].geturl()}\n    depth: {config['DEPTH']}\n")
 
         scan(config['URL'].geturl())
+
+        Logger.message('Done.')
     except KeyboardInterrupt as e:
-        print('Program stopped.')
+        Logger.error('Program stopped.')
     except Exception as e:
-        pprint(e)
+        Logger.error(e)
 
 
 if __name__ == '__main__':
