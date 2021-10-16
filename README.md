@@ -1,4 +1,4 @@
-# pscan 1.0.1v
+# pscan 1.0.2v
 
 - pscan is a python tool used for finding directories and files in websites
 
