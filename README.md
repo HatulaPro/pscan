@@ -5,7 +5,7 @@
 ## Usage
 
 ```bash 
-python scanner.py [-h] -u URL [-d depth] [-o file-name]
+python scanner.py [-h] -u URL [-d depth] [-o file-name] [-r] [-f] [-s]
 ```
 
 - `-u`, `--url` (required): the url to scan. Schema must be specified.
